@@ -1,0 +1,24 @@
+= I2db v0.1a
+
+I2db (Internal Information db) is a rails application for managing internal information lists including personel information, inventory, etc.
+It is currently under active directory and should not be considered stable until a full version release.
+
+= Requirements
+  Ruby >= 1.9
+  rubygems
+  bundler
+  rails >=3.0.5
+Optional:
+  capistrano
+  passenger
+
+= Use
+
+  bundle install
+  rails server (OR passenger start)
+
+The default login will be admin:admin, and all tables can be managed in the admin interface at /admin
+
+== License
+
+I2db is released under the MIT license. Please see LICENSE for more information
