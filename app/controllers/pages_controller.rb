@@ -1,49 +1,47 @@
-class RecordsController < ApplicationController
-  # GET /records
-  # GET /records.xml
+class PagesController < ApplicationController
+  # GET /:model
   def index
-    @records = Record.find_by_model(params[:model])
-
+    @records = Record.find_all_by_model(params[:model])
+    @page = Page.find_by_model_and_type(params[:model], 'index')
     respond_to do |format|
       format.html # index.html.erb
-      format.json do
-        # Returns json of records
-      end
+      format.xml  { render :xml => @pages }
     end
   end
 
-  # GET /api/records/:id
+  # GET /:model/:id
   def show
-    @record = Record.find(params[:id])
-
+    @record = Record.find_by_model_and_model_id(params[:model],params[:id])
+    @page = Page.find_by_model_and_type(params[:model], 'show')
     respond_to do |format|
       format.html # show.html.erb
-      format.json do
-        # Returns json of record
-      end
+      format.xml  { render :xml => @page }
     end
   end
 
-  # GET /api/records/new
+  # GET /:model/new
   def new
     @record = Record.new
+    @page = Page.find_by_model_and_type(params[:model], 'new')
 
     respond_to do |format|
       format.html # new.html.erb
+      format.xml  { render :xml => @page }
     end
   end
 
-  # GET /api/records/:id/edit
+  # GET /:model/:id/edit
   def edit
-    @record = Record.find(params[:id])
+    @record = Record.find_by_model_and_model_id(params[:model],params[:id])
+    @page = Page.find_by_model_and_type(params[:model], 'new')
   end
 
-  # POST /api/records
+  # POST /api/pages
   def create
-    @record = Record.new(params[:record])
+    @page = Page.new(params[:page])
 
     respond_to do |format|
-      if @record.save
+      if @page.save
         format.html { redirect_to(@page, :notice => 'Page was successfully created.') }
         format.xml  { render :xml => @page, :status => :created, :location => @page }
       else
@@ -53,12 +51,12 @@ class RecordsController < ApplicationController
     end
   end
 
-  # PUT /api/records/:id
+  # PUT /api/pages/:id
   def update
-    @record = Record.find_by_model_and_model_id(params[:model],params[:id])
+    @page = Page.find(params[:id])
 
     respond_to do |format|
-      if @record.update_attributes(params[:record])
+      if @page.update_attributes(params[:page])
         format.html { redirect_to(@page, :notice => 'Page was successfully updated.') }
         format.xml  { head :ok }
       else
@@ -68,14 +66,15 @@ class RecordsController < ApplicationController
     end
   end
 
-  # DELETE /api/records/:id
+  # DELETE /api/pages/:id
   def destroy
-    @record = Record.find_by_model_and_model_id(params[:model],params[:id])
-    @record.destroy
+    @page = Page.find(params[:id])
+    @page.destroy
 
     respond_to do |format|
       format.html { redirect_to(pages_url) }
       format.xml  { head :ok }
     end
   end
+  
 end
